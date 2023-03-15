@@ -34,6 +34,14 @@ export default function App() {
                         return;
                     }
 
+                    // Check state
+                    if (request.state !== result.params.state) {
+                        // CSRF Attack?
+                        setText(`Received state string does not match original string!
+                         (${request.state} != ${result.params.state})`);
+                        return;
+                    }
+
                     // Auth was successful, we received an auth code
                     let walkthrough = `Authorization code: ${result.params.code}`;
                     setText(walkthrough);
