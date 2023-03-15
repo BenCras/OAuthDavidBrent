@@ -9,7 +9,7 @@ export default function App() {
     // https://demo.duendesoftware.com/.well-known/openid-configuration
     const discovery = useAutoDiscovery('https://demo.duendesoftware.com');
 
-    // Create and load an auth request
+    // Create and load an auth request for PKCE flow
     const [request, , promptAsync] = useAuthRequest(
         {
             clientId: 'interactive.public',
@@ -57,7 +57,7 @@ export default function App() {
                         }
                     }, discovery)
                         .then((result) => {
-                            // We received an access token, allowing us to
+                            // We received an access token, allowing us to fetch user info
                             walkthrough = `${walkthrough}\n\nAccess Token: ${result.accessToken}`;
                             setText(walkthrough);
                             fetch("https://demo.duendesoftware.com/connect/userinfo", {
